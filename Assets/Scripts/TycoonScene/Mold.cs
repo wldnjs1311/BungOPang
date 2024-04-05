@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-//붕어빵의 상태
-enum State
-{
-
-}
-
-//붕어빵의 종류
-enum BungOType
-{
-    Basic
-}
-
 public class Mold : MonoBehaviour
 {
     public Sprite[] sprite_;
@@ -29,31 +17,30 @@ public class Mold : MonoBehaviour
 
     void Awake()
     {
-        bung_ = GetComponentInChildren<SpriteRenderer>();
+        bung_ = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
 
     void Update() //나중에 업데이트 말고 gamemanager에서 playing일 때 호출되게
     {
-        if (Input.GetMouseButtonDown(0)) //그냥 클릭했을 때
-        {
-            Debug.Log("Click!");
-            if (cookingDegree_ > 100)
-            {
-                GetBungOPang();
-            }
-            else if (cookingDegree_ > 50)
-            {
-                Flip();
-            }
-            else
-            {
-                SetBungOPangID(1);
-            }
-        }
-
         Cooking();
     }
 
+    private void OnMouseDown()
+    {
+        Debug.Log("Click!");
+        if (cookingDegree_ > 100)
+        {
+            GetBungOPang();
+        }
+        else if (cookingDegree_ > 50)
+        {
+            Flip();
+        }
+        else
+        {
+            SetBungOPangID(3);
+        }
+    }
     void SetBungOPangID(int id)
     {
         id_ = id;
@@ -94,7 +81,7 @@ public class Mold : MonoBehaviour
         }
         else if (cookingDegree_ > 50)
         {
-            //덜 익었음
+            bung_.sprite = sprite_[2];
         }
         else
         {
@@ -103,7 +90,7 @@ public class Mold : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
-    {-
+    {
         if (id_ == 0 && Input.GetMouseButtonUp(0))
         {
             //id 설정, 현재 들고 있는 붕어 재료로
