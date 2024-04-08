@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b1bdc3d326cd4c4c9cd0cde72298958, type: 3}
-  m_Name: Redbeans
+  m_Name: Ingre_6
   m_EditorClassIdentifier: 
-  value: 0
-  sprite_: {fileID: 0}
+  value: 6
+  sprite_: {fileID: 21300000, guid: 7fd9077d7a80740479ce043109253c29, type: 3}

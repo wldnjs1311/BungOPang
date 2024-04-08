@@ -17,11 +17,16 @@ public class Tile : MonoBehaviour
         {
             if (item_ == value) return;
 
-            Item = value;
+            item_ = value;
             icon_.sprite = item_.sprite_;
         }
     }
 
     public Image icon_;
     public Button button_;
+
+    private void Start()
+    {
+        button_.onClick.AddListener(call: () => Board.Instance.Select(tile: this));
+    }
 }

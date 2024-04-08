@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b1bdc3d326cd4c4c9cd0cde72298958, type: 3}
+  m_Name: Dough
+  m_EditorClassIdentifier: 
+  value: 0
+  sprite_: {fileID: 21300000, guid: 8074560c0e943e24ea479b561986707e, type: 3}
