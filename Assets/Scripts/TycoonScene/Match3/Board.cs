@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Board : MonoBehaviour
@@ -154,6 +155,7 @@ public class Board : MonoBehaviour
             .AsyncWaitForCompletion();
 
         popTiles.Clear();
+        Debug.Log($"popTIles size :{popTiles.Count}");
     }
 }
 
