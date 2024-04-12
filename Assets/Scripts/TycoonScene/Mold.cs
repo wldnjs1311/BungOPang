@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Mold : MonoBehaviour
@@ -11,15 +9,16 @@ public class Mold : MonoBehaviour
     private int state_ = 0;
     public float cookingDegree_ = 0; // 익은 정도
     private float speed_ = 5;
+    private bool flip = false;
 
     private SpriteRenderer bung_;
-    private Animator anim_;
+    private Animation anim_;
 
 
     void Awake()
     {
         bung_ = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        anim_ = GetComponent<Animator>();
+        anim_ = GetComponent<Animation>();
     }
 
     void Update() //나중에 업데이트 말고 gamemanager에서 playing일 때 호출되게
@@ -30,7 +29,7 @@ public class Mold : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Click!");
-        if (cookingDegree_ > 100)
+        if (cookingDegree_ > 150)
         {
             GetBungOPang();
         }
@@ -43,6 +42,7 @@ public class Mold : MonoBehaviour
             SetBungOPangID(3);
         }
     }
+
     void SetBungOPangID(int id)
     {
         id_ = id;
@@ -50,10 +50,17 @@ public class Mold : MonoBehaviour
 
     void Flip()
     {
-        if (anim_.GetBool("Flip"))
-            anim_.SetBool("Flip", false);
-        else 
-            anim_.SetBool("Flip", true);
+        Debug.Log("Flip!");
+        if (flip)
+        {
+            anim_.Play("MoldFlipReturn");
+            flip = false;
+        }
+        else
+        {
+            anim_.Play("MoldFlipX");
+            flip = true;
+        }
     }
 
     void GetBungOPang()
@@ -64,7 +71,7 @@ public class Mold : MonoBehaviour
         id_ = 0;
         state_ = 0;
         cookingDegree_ = 0;
-        bung_.sprite = sprite_[0];
+        bung_.sprite = null;
         //이미지 초기화
     }
 
@@ -75,22 +82,17 @@ public class Mold : MonoBehaviour
         //굽고 있으면 cooking 업데이트
         cookingDegree_ += speed_ * Time.deltaTime;
 
-        if (cookingDegree_ > 170)
-        {
-            bung_.sprite = sprite_[4];
-        }
+        //0~3 : 공통, 4~6 : 장착 붕어빵
+        if (cookingDegree_ > 250)
+            bung_.sprite = sprite_[3];
+        else if (cookingDegree_ > 150)
+            bung_.sprite = sprite_[4 + id_];
         else if (cookingDegree_ > 100)
-        {
-            bung_.sprite = sprite_[id_];
-        }
-        else if (cookingDegree_ > 50)
-        {
             bung_.sprite = sprite_[2];
-        }
-        else
-        {
+        else if(cookingDegree_ > 50)
             bung_.sprite = sprite_[1];
-        }
+        else
+            bung_.sprite = sprite_[0];
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
