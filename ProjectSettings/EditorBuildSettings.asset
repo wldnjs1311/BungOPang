@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TycoonScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scenes/StartScene.unity
+    guid: eb8c60187a0844149a951452f7e06297
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: a7eca93a8cf175d40ae9a43ad14b8f34
+  - enabled: 1
+    path: Assets/Scenes/TycoonScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/FarmScene.unity
+    guid: 2c50b06540700e54bbd13d17f902745e
   m_configObjects: {}

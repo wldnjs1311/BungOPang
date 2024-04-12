@@ -10,7 +10,7 @@ enum Ingredient
 }
 public class TycoonManager : MonoBehaviour
 {
-
+    //public static TycoonManager Instance;
     int[] ingreSize_ = { 0, 0, 0, 0, 0 };
 
 

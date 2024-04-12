@@ -13,11 +13,13 @@ public class Mold : MonoBehaviour
     private float speed_ = 5;
 
     private SpriteRenderer bung_;
+    private Animator anim_;
 
 
     void Awake()
     {
         bung_ = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        anim_ = GetComponent<Animator>();
     }
 
     void Update() //나중에 업데이트 말고 gamemanager에서 playing일 때 호출되게
@@ -48,8 +50,10 @@ public class Mold : MonoBehaviour
 
     void Flip()
     {
-        if(bung_.flipY) bung_.flipY = false;
-        else bung_.flipY = true;
+        if (anim_.GetBool("Flip"))
+            anim_.SetBool("Flip", false);
+        else 
+            anim_.SetBool("Flip", true);
     }
 
     void GetBungOPang()

@@ -5,8 +5,11 @@ public class ClickToStart : MonoBehaviour
 {
     public string sceneName;
 
-    private void OnMouseUp()
+    private void Update()
     {
-        SceneManager.LoadScene($"{sceneName}");
+        if (Input.GetMouseButtonUp(0))
+        {
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }
