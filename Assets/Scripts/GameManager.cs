@@ -7,12 +7,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    //Managers
     public TycoonManager tycoonManager;
     //public InputManager inputManager;
 
+    //Game data
     public bool pause;
     public int income;
 
+    public int[] selectedBung;
+
+    //UI
     public GameObject pausePanel;
     public GameObject infoPanel;
 

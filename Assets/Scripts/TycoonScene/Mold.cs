@@ -5,11 +5,14 @@ public class Mold : MonoBehaviour
 {
     public Sprite[] sprite_;
 
-    private int id_ = 0; // 사용된 재료, 어떤 붕어빵인지 결정
-    private int state_ = 0;
-    public float cookingDegree_ = 0; // 익은 정도
+    private int id_ = 0; // 굽고있는 붕어빵 종류
+    private bool isEmpty = true;
+    private float cookingDegree_ = 0; // 익은 정도
     private float speed_ = 5;
+
     private bool flip = false;
+    private bool alflip = false;
+    private int flipCount = 0; //flip 횟수에 따라 붕어빵 퀄리티 다름
 
     private SpriteRenderer bung_;
     private Animation anim_;
@@ -28,18 +31,21 @@ public class Mold : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Click!");
-        if (cookingDegree_ > 150)
+        if (isEmpty)
         {
-            GetBungOPang();
-        }
-        else if (cookingDegree_ > 50)
-        {
-            Flip();
+            SetBungOPangID(0);//임시 test 코드, 붕어빵 넣기
+            isEmpty = false;
         }
         else
         {
-            SetBungOPangID(3);
+            if (cookingDegree_ > 150)
+            {
+                GetBungOPang();
+            }
+            else if (cookingDegree_ > 50 && !alflip)
+            {
+                Flip();
+            }
         }
     }
 
@@ -48,9 +54,21 @@ public class Mold : MonoBehaviour
         id_ = id;
     }
 
+    void GetBungOPang()
+    {
+        //보관
+
+
+        //초기화
+        id_ = 0;
+        isEmpty = true;
+        cookingDegree_ = 0;
+        flipCount = 0;
+        bung_.sprite = null;
+    }
+
     void Flip()
     {
-        Debug.Log("Flip!");
         if (flip)
         {
             anim_.Play("MoldFlipReturn");
@@ -61,23 +79,16 @@ public class Mold : MonoBehaviour
             anim_.Play("MoldFlipX");
             flip = true;
         }
+
+        alflip = true;
+        flipCount++;
     }
 
-    void GetBungOPang()
-    {
-        //전달
 
-        //초기화
-        id_ = 0;
-        state_ = 0;
-        cookingDegree_ = 0;
-        bung_.sprite = null;
-        //이미지 초기화
-    }
 
     void Cooking()
     {
-        if (id_ == 0) return; //아무것도 안굽고 있으면 return
+        if (isEmpty) return;
 
         //굽고 있으면 cooking 업데이트
         cookingDegree_ += speed_ * Time.deltaTime;
@@ -88,9 +99,13 @@ public class Mold : MonoBehaviour
         else if (cookingDegree_ > 150)
             bung_.sprite = sprite_[4 + id_];
         else if (cookingDegree_ > 100)
+        {
             bung_.sprite = sprite_[2];
+        }
         else if(cookingDegree_ > 50)
+        {
             bung_.sprite = sprite_[1];
+        }
         else
             bung_.sprite = sprite_[0];
     }
