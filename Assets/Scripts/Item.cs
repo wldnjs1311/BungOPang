@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "BungOPang/IgredientType")]
+[CreateAssetMenu(menuName = "BungOPang/Igredient")]
 public sealed class IngredientType : ScriptableObject
 {
     public int ID;
@@ -9,8 +9,8 @@ public sealed class IngredientType : ScriptableObject
     public Sprite sprite;
 }
 
-[CreateAssetMenu(menuName = "BungOPang/Customer")]
-public sealed class Customer : ScriptableObject
+[CreateAssetMenu(menuName = "BungOPang/CustomerType")]
+public sealed class CustomerType : ScriptableObject
 {
     public int ID;
     public string Name;

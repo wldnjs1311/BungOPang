@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     //Game data
     public bool pause;
     public int income;
+    public int[] lefts;
 
     public int[] selectedBung;
 
@@ -27,11 +28,14 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(gameObject);
+
+        income = 1000;
+        lefts = new int[4];
     }
 
     private void Update()
     {
-        
+
     }
 
     public void GameOver()

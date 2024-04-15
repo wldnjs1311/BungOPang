@@ -9,7 +9,7 @@ public class Slot : MonoBehaviour
     private int maxSize = 10; //진열 최대치
     public Sprite sprite;
 
-    private int stockSize = 0; //현재 재고
+    private int stockSize = 5; //현재 재고
     private float xRange = 3f;
 
     private GameObject[] bungOs; //붕어빵 오브젝트

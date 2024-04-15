@@ -12,6 +12,7 @@ public class Board : MonoBehaviour
     public Row[] rows_;
 
     public Tile[,] Tiles { get; private set; }
+    public Row Rows { get; private set; }
 
     public int Width => Tiles.GetLength(dimension: 0);
     public int Height => Tiles.GetLength(dimension: 1);
@@ -26,13 +27,14 @@ public class Board : MonoBehaviour
     private void Awake() => Instance = this;
 
     public List<Tile> popTiles;
-
     private void Start()
     {
         Tiles = new Tile[rows_.Max(selector: row => row.tiles_.Length), rows_.Length];
 
         for (var y = 0; y < Height; y++)
         {
+            float yPos = (6f / Height) * y - 4.15f ;
+            rows_[y].transform.position = new Vector3(0, yPos, 0);
             for (var x = 0; x < Width; x++)
             {
                 var tile = rows_[y].tiles_[x];
@@ -40,7 +42,10 @@ public class Board : MonoBehaviour
                 tile.x = x;
                 tile.y = y;
 
-                tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
+                tile.Ingredient = IngredientDatabase.Ingredients[Random.Range(0, IngredientDatabase.Ingredients.Length)];
+
+                float xPos = (4.6f / Width) * x - 2f;
+                tile.transform.position = new Vector3(xPos, yPos, 0);
 
                 Tiles[x, y] = tile;
             }
@@ -96,11 +101,11 @@ public class Board : MonoBehaviour
         tile1.icon_ = icon2;
         tile2.icon_ = icon1;
 
-        var tile1Item = tile1.Item;
+        var tile1Item = tile1.Ingredient;
 
         //아이템 변경
-        tile1.Item = tile2.Item;
-        tile2.Item = tile1Item;
+        tile1.Ingredient = tile2.Ingredient;
+        tile2.Ingredient = tile1Item;
     }
 
     private void Update()
@@ -110,7 +115,7 @@ public class Board : MonoBehaviour
 
     private bool CanPop(Tile a, Tile b)
     {
-        if(a.GetConnectedTileX().Skip(1).Count() >= 2 || a.GetConnectedTileY().Skip(1).Count() >= 2 
+        if (a.GetConnectedTileX().Skip(1).Count() >= 2 || a.GetConnectedTileY().Skip(1).Count() >= 2
             || b.GetConnectedTileX().Skip(1).Count() >= 2 || b.GetConnectedTileY().Skip(1).Count() >= 2)
             return true;
         return false;
@@ -121,7 +126,7 @@ public class Board : MonoBehaviour
         for (var y = 0; y < Height; y++)
             for (var x = 0; x < Width; x++)
             {
-                if (popTiles.Contains(Tiles[x,y])) continue;
+                if (popTiles.Contains(Tiles[x, y])) continue;
 
                 if (Tiles[x, y].GetConnectedTileX().Skip(1).Count() >= 2)
                     foreach (Tile tile in Tiles[x, y].GetConnectedTileX())
@@ -137,7 +142,7 @@ public class Board : MonoBehaviour
     {
         var deflateSequence = DOTween.Sequence();
 
-        foreach(var tile in popTiles)
+        foreach (var tile in popTiles)
             deflateSequence.Join(tile.icon_.transform.DOScale(Vector3.zero, TweenDuration));
 
         await deflateSequence.Play()
@@ -147,8 +152,8 @@ public class Board : MonoBehaviour
 
         foreach (var tile in popTiles) //새로운 아이템 생성
         {
-            tile.Item = ItemDatabase.Items[Random.Range(0, ItemDatabase.Items.Length)];
-            inflateSequence.Join(tile.icon_.transform.DOScale(Vector3.one, TweenDuration));
+            tile.Ingredient = IngredientDatabase.Ingredients[Random.Range(0, IngredientDatabase.Ingredients.Length)];
+            inflateSequence.Join(tile.icon_.transform.DOScale(new Vector3(0.1f, 0.1f, 1f), TweenDuration));
 
         }
         await inflateSequence.Play()

@@ -9,21 +9,21 @@ public sealed class Tile : MonoBehaviour
     public int x;
     public int y;
 
-    private Item item_;
+    private IngredientType ingredient;
 
-    public Item Item
+    public IngredientType Ingredient
     {
-        get => item_;
+        get => ingredient;
         set
         {
-            if (item_ == value) return;
+            if (ingredient == value) return;
 
-            item_ = value;
-            icon_.sprite = item_.sprite_;
+            ingredient = value;
+            icon_.sprite = ingredient.sprite;
         }
     }
 
-    public Image icon_;
+    public SpriteRenderer icon_;
     public Button button_;
 
     public Tile Left => x > 0 ? Board.Instance.Tiles[x - 1, y] : null;
@@ -60,7 +60,7 @@ public sealed class Tile : MonoBehaviour
 
         foreach (var neighbour in NeighboursX)
         {
-            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item) continue;
+            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Ingredient != Ingredient) continue;
 
             result.AddRange(neighbour.GetConnectedTileX(exclude));
         }
@@ -84,7 +84,7 @@ public sealed class Tile : MonoBehaviour
 
         foreach (var neighbour in NeighboursY)
         {
-            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Item != Item) continue;
+            if (neighbour == null || exclude.Contains(neighbour) || neighbour.Ingredient != Ingredient) continue;
 
             result.AddRange(collection: neighbour.GetConnectedTileY(exclude));
         }

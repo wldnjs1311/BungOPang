@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1bdc3d326cd4c4c9cd0cde72298958, type: 3}
-  m_Name: Dough
-  m_EditorClassIdentifier: 
-  value: 0
-  sprite_: {fileID: 21300000, guid: 8074560c0e943e24ea479b561986707e, type: 3}
+  m_Script: {fileID: 0}
+  m_Name: New Customer Type
+  m_EditorClassIdentifier: Assembly-CSharp::CustomerType
+  ID: 0
+  Name: 
+  sprite: {fileID: 0}
+  description: 
+  comment: []
+  friendship: 0

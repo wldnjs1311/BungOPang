@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b1bdc3d326cd4c4c9cd0cde72298958, type: 3}
-  m_Name: Ingre_5
+  m_Name: Dough
   m_EditorClassIdentifier: 
-  value: 5
-  sprite_: {fileID: 21300000, guid: ea9c2dd18ae315849ad9af1c8acb50af, type: 3}
+  ID: 0
+  Name: 
+  sprite: {fileID: 21300000, guid: 0ed93db84c24fbe4883d8f5e1e7e9e12, type: 3}
