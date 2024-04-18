@@ -15,6 +15,6 @@ public class Gold : MonoBehaviour
 
     void Update()
     {
-        text.text = (string.Format("{0:#,###}", gameManager.income)).ToString();
+        text.text = (string.Format("{0:n0}", gameManager.income)).ToString();
     }
 }

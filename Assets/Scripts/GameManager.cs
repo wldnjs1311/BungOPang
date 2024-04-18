@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,14 +11,15 @@ public class GameManager : MonoBehaviour
 
     //Game data
     public bool pause;
-    public int income;
-    public int[] lefts;
+    public int income = 0;
+    public int[] ingreCnts = { 0, 0, 0, 0 };
 
     public int[] selectedBung;
 
     //UI
     public GameObject pausePanel;
     public GameObject infoPanel;
+    public Text[] ingreTexts;
 
     private void Awake()
     {
@@ -29,8 +28,10 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        income = 1000;
-        lefts = new int[4];
+        for (int i = 0; i < ingreCnts.Length; i++)
+        {
+            ingreTexts[i].text = ingreCnts[i].ToString();
+        }
     }
 
     private void Update()
@@ -44,6 +45,17 @@ public class GameManager : MonoBehaviour
 
         //플레이 요약 panel 출력
         //플레이 데이터 저장
+    }
+    private void SaveIngre(int type, int amount)
+    {
+        ingreCnts[type] = (ingreCnts[type] + amount > 99) ? 99 : ingreCnts[type] + amount;
+        ingreTexts[type].text = $"{ingreCnts}";
+    }
+
+    private void UseIngre(int type, int amount)
+    {
+        ingreCnts[type] = (ingreCnts[type] - amount < 0) ? 0 : ingreCnts[type] - amount;
+        ingreTexts[type].text = $"{ingreCnts}";
     }
 
 }
