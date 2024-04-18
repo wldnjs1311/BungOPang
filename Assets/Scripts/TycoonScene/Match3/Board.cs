@@ -44,7 +44,7 @@ public class Board : MonoBehaviour
 
                 tile.Ingredient = IngredientDatabase.Ingredients[Random.Range(0, IngredientDatabase.Ingredients.Length)];
 
-                float xPos = (4.6f / Width) * x - 2f;
+                float xPos = (4.6f / Width) * x - 2f + transform.position.x;
                 tile.transform.position = new Vector3(xPos, yPos, 0);
 
                 Tiles[x, y] = tile;
